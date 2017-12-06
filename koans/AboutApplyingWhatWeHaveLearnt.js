@@ -41,10 +41,10 @@ describe("About Applying What We Have Learnt", function() {
 
       /* solve using filter() & all() / any() */
       productsICanEat = products.filter(function(product) {
-
+        return (!product.ingredients.includes("mushrooms") && !product.containsNuts)
       })
 
-      expect(productsICanEat.length).toBe(0);
+      expect(productsICanEat.length).toBe(1);
   });
 
   /*********************************************************************************/
@@ -87,14 +87,13 @@ describe("About Applying What We Have Learnt", function() {
     var ingredientCount = { "{ingredient name}": 0 };
 
     /* chain() together map(), flatten() and reduce() */
-    
-    var ingredientCount = _([ [0, 1], 2 ]).chain()
-      .flatten()
-      .map(function(x) { return x+1 } )
-      .reduce(function (sum, x) { return sum + x })
+    var ingredientCount = _(products).chain()
+      .map(function(product) { return product.ingredients } )
+      .reduce(function (a, b) { return a.concat(b) })
       .value();
-
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    
+    console.log(ingredientCount)
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   /*********************************************************************************/
